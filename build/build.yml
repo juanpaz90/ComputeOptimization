@@ -1,0 +1,34 @@
+steps:
+  # STEP 0
+  - id: installing-dependencies
+    name: 'python'
+    entrypoint: pip
+    args: ["install", "-r", "src/requirements.txt", "--user"]
+
+  # STEP 1
+  - id: safety-check
+    name: 'python'
+    entrypoint: '/builder/home/.local/bin/safety'
+    args: ["check", "-r", "src/requirements.txt"]
+    waitFor: ["installing-dependencies"]
+
+  # STEP 2
+  - id: run-pytest
+    name: 'python'
+    entrypoint: '/usr/local/bin/python'
+    args: ["-m", "pytest"]
+    waitFor: ["installing-dependencies", "safety-check"]
+
+  # STEP 3
+  - id: deploy-function
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args:
+    - gcloud
+    - functions
+    - deploy
+    - compute_optimization # Name of the executed function
+    - --region=us-central1
+    - --source=./src
+    - --trigger-topic=stop_and_start_vms
+    - --runtime=python39
+    waitFor: ["installing-dependencies", "run-pytest", "safety-check"]
