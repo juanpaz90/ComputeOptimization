@@ -13,6 +13,8 @@ coverage = "*"
 autopep8 = "*"
 
 [packages]
+google-api-core = "*"
+google-cloud-compute = "*"
 
 [requires]
 python_version = "3.9"
