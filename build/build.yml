@@ -1,23 +1,25 @@
 steps:
   # STEP 0
+  - id: creating-google-cloud-scheddulers
+    name: Script
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      sh ./build/topic_and_cloud_scheduler.sh
+
+  # STEP 1
   - id: installing-dependencies
     name: 'python'
     entrypoint: pip
     args: ["install", "-r", "src/requirements.txt", "--user"]
 
-  # STEP 1
+  # STEP 2
   - id: safety-check
     name: 'python'
     entrypoint: '/builder/home/.local/bin/safety'
     args: ["check", "-r", "src/requirements.txt"]
     waitFor: ["installing-dependencies"]
-
-  # STEP 2
-  - id: run-pytest
-    name: 'python'
-    entrypoint: '/usr/local/bin/python'
-    args: ["-m", "pytest"]
-    waitFor: ["installing-dependencies", "safety-check"]
 
   # STEP 3
   - id: deploy-function

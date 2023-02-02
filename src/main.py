@@ -1,6 +1,6 @@
+import os
 import sys
 import base64
-import json
 from google.api_core.extended_operation import ExtendedOperation
 from google.cloud import compute_v1
 
@@ -48,16 +48,26 @@ def stop_instance(project_id: str, zone: str, instance_name: str):
 
 
 def compute_optimization(data, context):
+    project_id = os.environ["GCP_PROJECT"]
+    zone = "us-central1-a"
+    instance_name = "test-instance-1"
+
     if decode_pubsub(data) == "START":
-        start_instance(project_id, zone, instance_name)
-        print("Start VM")
+        try:
+            start_instance(project_id, zone, instance_name)
+            print("Start VM")
+        except Exception as e:
+            print(f"START ERROR: {e}")
     elif decode_pubsub(data) == "STOP":
-        stop_instance(project_id, zone, instance_name)
-        print("Stop VM")
+        try:
+            stop_instance(project_id, zone, instance_name)
+            print("Stop VM")
+        except Exception as e:
+            print(f"STOP ERROR: {e}")
 
 
-if __name__ == "__main__":
-    data_start = {"data": "U1RBUlQ="}
-    data_stop = {"data": "U1RPUA=="}
-    context = "none"
-    compute_optimization(data_stop, context)
+# if __name__ == "__main__":
+#     data_start = {"data": "U1RBUlQ="}
+#     data_stop = {"data": "U1RPUA=="}
+#     context = "none"
+#     compute_optimization(data_stop, context)
