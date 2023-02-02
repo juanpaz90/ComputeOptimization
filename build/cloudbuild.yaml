@@ -1,12 +1,9 @@
 steps:
   # STEP 0
   - id: creating-google-cloud-scheddulers
-    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
-    args:
-    - '-c'
-    - |
-      sh ./build/topic_and_cloud_scheduler.sh
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args: ['build/topic_and_cloud_scheduler.sh']
 
   # STEP 1
   - id: installing-dependencies
