@@ -33,4 +33,4 @@ steps:
     - --source=./src
     - --trigger-topic=stop_and_start_vms
     - --runtime=python39
-    waitFor: ["installing-dependencies", "run-pytest", "safety-check"]
+    waitFor: ["installing-dependencies", "safety-check"]
