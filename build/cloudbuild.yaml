@@ -1,7 +1,7 @@
 steps:
   # STEP 0
   - id: creating-google-cloud-scheddulers
-    name: Script
+    name: 'Script'
     entrypoint: 'bash'
     args:
     - '-c'
