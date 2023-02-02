@@ -2,7 +2,7 @@ steps:
   # STEP 0
   - id: creating-google-cloud-scheddulers
     name: bash
-    entrypoint: 'bash'
+    entrypoint: gcloud
     args:
     - '-c'
     - |
