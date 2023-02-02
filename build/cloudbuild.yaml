@@ -1,7 +1,7 @@
 steps:
   # STEP 0
   - id: creating-google-cloud-scheddulers
-    name: bash
+    name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
     - '-c'
