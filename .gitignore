@@ -1,0 +1,16 @@
+*.py[cod]
+*$py.class
+.coverage
+.python-version
+
+#GCP service account
+gcp_credentials/*
+
+.idea/*
+*.DS_Store
+venv-local/* 
+src/__pycache__/
+tests/pytest_cache/
+.pytest_cache/
+.data_adapter/
+.env

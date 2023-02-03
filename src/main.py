@@ -50,24 +50,20 @@ def stop_instance(project_id: str, zone: str, instance_name: str):
 def compute_optimization(data, context):
     project_id = os.environ["GCP_PROJECT"]
     zone = "us-central1-a"
-    instance_name = "test-instance-1"
+    # instance_name = "test-instance-1"
+    instance_list = ["instance-1", "instance-2", "instance-3"]
 
     if decode_pubsub(data) == "START":
         try:
-            start_instance(project_id, zone, instance_name)
-            print("Start VM")
+            for instance in instance_list:
+                start_instance(project_id, zone, instance)
+                print(f"Start {instance}")
         except Exception as e:
             print(f"START ERROR: {e}")
     elif decode_pubsub(data) == "STOP":
         try:
-            stop_instance(project_id, zone, instance_name)
-            print("Stop VM")
+            for instance in instance_list:
+                stop_instance(project_id, zone, instance)
+                print(f"Stop {instance}")
         except Exception as e:
             print(f"STOP ERROR: {e}")
-
-
-# if __name__ == "__main__":
-#     data_start = {"data": "U1RBUlQ="}
-#     data_stop = {"data": "U1RPUA=="}
-#     context = "none"
-#     compute_optimization(data_stop, context)
