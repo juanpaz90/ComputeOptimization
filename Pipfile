@@ -13,6 +13,7 @@ coverage = "*"
 autopep8 = "*"
 
 [packages]
+safety = "*"
 google-api-core = "*"
 google-cloud-compute = "*"
 
