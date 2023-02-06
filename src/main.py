@@ -67,3 +67,5 @@ def compute_optimization(data, context):
                 print(f"Stop {instance}")
         except Exception as e:
             print(f"STOP ERROR: {e}")
+    else:
+        print(f'The message must be STOP or START')
