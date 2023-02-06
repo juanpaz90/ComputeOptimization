@@ -2,12 +2,12 @@
 This repository aims to optimize cloud spending in your `DEV` and `PREPROD` environments. 
 Herein you can find automation that will stop and start your virtual machines at a specific hour. To be specific, we are using `Cloud Scheduler`, `Pub/sub messages`, `Cloud Functions`, and `Cloud build`.
 
-##Before you begin
+## Before you begin
 If you are planning to use Cloud build, you have to enable the following roles for the cloud build service account.
 - *Cloud Scheduler Admin*
 - *Pub/Sub Admin*
 
-##How it works
+## How it works
 We configure two different cloud scheduler jobs, the first one runs every Friday and sends a message with the word: `STOP`. The second one runs every Sunday and sends a pub/sub message with the word: `START`. 
 Then we have only one topic that receives the Pub/sub messages from both cloud schedulers.
 Finally, we have a function that consumes the messages collected in the topic, and depending on the words START or STOP will start or stop the virtual machines.
