@@ -1,9 +1,13 @@
 # ComputeOptimization
 This repository aims to optimize cloud spending in your `DEV` and `PREPROD` environments. 
-Herein you can find automation that will stop and start your virtual machines at a specific hour. To be specific, we are using `Cloud Scheduler`, `Pub/sub messages`, `Cloud Functions`, and `Cloud build`.
+Herein you can find a useful automation that will stop and start your virtual machines at a specific hour. To be specific, we are going to stop the VMs during the weekend and at the end of it we will start them again.
+
+With this approach we will decrease the cost consumption of your projects without any disruption.
 
 ## Before you begin
-If you are planning to use Cloud build, you have to enable the following roles for the cloud build service account.
+The implementation of this automation requires the use of `Cloud Scheduler`, `Pub/sub messages`, `Cloud Functions`, and `Cloud build`.
+
+Moreover, you have to enable the following roles for the Cloud build service account.
 - *Cloud Scheduler Admin*
 - *Pub/Sub Admin*
 
@@ -14,14 +18,15 @@ Finally, we have a function that consumes the messages collected in the topic, a
 
 ![img_1.png](img.png)
 
-We have hardcoded the virtual machine name, but you can create a separate text file in a storage bucket with the names and zones of all your virtual machines. 
+In the main file of our code, we have hardcoded the virtual machine name, but you can create a separate text file in a storage bucket with the names and zones of all your virtual machines. 
 If you prefer, you can use the secret manager and store the list of your virtual machines there. Is up to you.
 
 Finally, we used Cloud build to deploy the solution. The pipeline will create the topic, both Cloud Schedulers jobs, and deploy the function. 
 
-If you prefer, you can create both `cloud schedulers` and `topic` manually by running the commands in this file `build/topic_and_cloud_scheduler.sh`. 
+## Manual creation
+If you prefer, you can create both cloud schedulers and topic manually by running the commands in this file `build/topic_and_cloud_scheduler.sh`. Then you can deploy the cloud function.
 
-Finally, it is possible to start and stop instances using the following `gcloud` commands:
+Finally, if you are in a hurry you can start and stop instances using the following `gcloud` commands:
 
 ```shell
 gcloud compute instances stop VM_NAME
