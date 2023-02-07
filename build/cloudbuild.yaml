@@ -29,5 +29,5 @@ steps:
     - --region=us-central1
     - --source=./src
     - --trigger-topic=stop_and_start_vms
-    - --runtime=python39
+    - --runtime=python37
     waitFor: ["installing-dependencies", "safety-check"]
